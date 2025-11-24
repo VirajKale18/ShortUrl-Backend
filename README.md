@@ -1,65 +1,52 @@
-# URL Shortener — Frontend (React + Tailwind)
+# URL Shortener Backend (Express + Prisma + SQLite)
 
-This is the frontend for the Full-Stack URL Shortener application.  
-It provides a responsive dashboard, link creation form, stats page, and integration with the backend API.
+This backend provides the full API and redirect logic for a URL shortener service.  
+It includes URL validation, short code generation, analytics tracking, deletion, and health checks.
 
 ---
 
 ## 🚀 Features
 
-### **Dashboard (/)**  
-- Table of all short links  
-- Columns:
-  - Short code
-  - Target URL (truncated)
-  - Total clicks
-  - Last clicked time
-- Actions:
-  - Create new short link
-  - Delete link
-  - Copy short link
-  - Search/filter by code or URL
-- Supports empty, loading, success, and error states  
-- Responsive on mobile & desktop  
-- Sorting optional implementation supported
+### ✔ Create short URLs
+- Auto-generate short codes (6–8 alphanumeric chars)
+- Accept custom short codes
+- Prevent collisions
+- Validate URL format
+- Reject invalid or duplicate codes
+
+### ✔ Redirect service
+- `GET /:code` performs:
+  - Short code lookup
+  - Click count increment
+  - Last-click timestamp update
+  - 302 redirect
+  - Returns 404 if not found
+
+### ✔ Statistics
+- Total clicks
+- Last clicked timestamp
+- Full link metadata
+
+### ✔ CRUD API
+- Create links
+- List all links
+- Fetch single link
+- Delete links
+
+### ✔ Health Check
+- `/healthz` returns uptime, version, and status
 
 ---
 
-## 📄 **Stats Page (/code/:code)**
+## 🛠 Tech Stack
 
-Displays detailed information:
-- `shortCode`
-- `longUrl`
-- `clickCount`
-- `lastClicked`
-
-Includes:
-- Copy button  
-- Open link button  
+- Node.js + Express
+- Prisma ORM
+- SQLite
+- CORS
+- REST API
 
 ---
 
-## 🧭 Routing
+## 📁 Folder Structure
 
-| Page | Path | Public |
-|------|------|--------|
-| Dashboard | `/` | Yes |
-| Link Stats | `/code/:code` | Yes |
-| Redirect | Handled by backend | Yes |
-| Health Check | `/healthz` (from backend) | Yes |
-
----
-
-## 🛠️ Tech Stack
-
-- **React (Vite or CRA)**
-- **TailwindCSS**
-- **React Router**
-- **Axios / Fetch API**
-
----
-
-## 📦 Installation
-
-```bash
-npm install
